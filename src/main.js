@@ -20,10 +20,10 @@ const galleryModal = new SimpleLightbox('.gallery a', {
   captions: true,
   captionsData: 'alt',
   captionsDelay: 250,
-  animationSpeed: 500, 
-  fadeSpeed: 500, 
-  zoom: true, 
-  scaleImageToRatio: true, 
+  animationSpeed: 500,
+  fadeSpeed: 500,
+  zoom: true,
+  scaleImageToRatio: true,
   enableKeyboard: true,
 });
 
@@ -63,8 +63,6 @@ formEl.addEventListener('submit', event => {
         });
 
         galleryEl.innerHTML = '';
-
-        formEl.reset();
       }
 
       const galleryTemplate = data.hits
@@ -72,12 +70,15 @@ formEl.addEventListener('submit', event => {
         .join('');
       galleryEl.innerHTML = galleryTemplate;
       galleryModal.refresh();
-      formEl.reset();
     })
     .catch(err => {
-      console.log(err);
+      iziToast.error({
+        message: 'Error fetching images. Please try again later.',
+        position: 'topRight',
+      });
     })
     .finally(() => {
+      formEl.reset();
       loader.style.display = 'none';
     });
 });
